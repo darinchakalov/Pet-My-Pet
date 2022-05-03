@@ -8,13 +8,13 @@ export default function CreatePet() {
 		e.preventDefault();
 
 		let formData = new FormData(e.currentTarget);
-		let petName = formData.get("name");
+		let name = formData.get("name");
 		let description = formData.get("description");
 		let imageUrl = formData.get("imageUrl");
 		let type = formData.get("type");
 
 		petService
-			.createPet({ petName, description, imageUrl, type })
+			.createPet({ name, description, imageUrl, type })
 			.then((result) => navigate("/"))
 			.catch((err) => console.log(err));
 	};
