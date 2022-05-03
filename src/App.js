@@ -10,6 +10,7 @@ import CreatePet from "./components/CreatePet/CreatePet.js";
 import MyPets from "./components/MyPets/MyPets.js";
 import PetDetails from "./components/PetDetails/PetDetails.js";
 import * as authService from "./services/authService.js";
+import Logout from "./components/Logout/Logout.js";
 
 function App() {
 	const [userInfo, setUserInfo] = useState({ isAuthenticated: false, username: "" });
@@ -30,6 +31,13 @@ function App() {
 		});
 	};
 
+	const onLogout = () => {
+		setUserInfo({
+			isAuthenticated: false,
+			user: null,
+		});
+	};
+
 	return (
 		<div id="container">
 			<Header {...userInfo} />
@@ -43,6 +51,7 @@ function App() {
 					<Route path="/edit/:id" element={<EditPet />} />
 					<Route path="/my-pets" element={<MyPets />} />
 					<Route path="/details/:id" element={<PetDetails />} />
+					<Route path="/logout" element={<Logout onLogout={onLogout} />} />
 				</Routes>
 			</main>
 

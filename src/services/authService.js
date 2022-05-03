@@ -8,6 +8,10 @@ export const getUser = () => {
 	return username;
 };
 
+export const logout = () => {
+	localStorage.clear();
+};
+
 export const isAuthenticated = () => {
 	return Boolean(getUser());
 };
