@@ -39,10 +39,10 @@ function App() {
 					<Route path="/" element={<Dashboard />} />
 					<Route path="/login" element={<Login onLogin={onLogin} />} />
 					<Route path="/register" element={<Register />} />
-					<Route path="/edit" element={<EditPet />} />
 					<Route path="/create" element={<CreatePet />} />
+					<Route path="/edit/:id" element={<EditPet />} />
 					<Route path="/my-pets" element={<MyPets />} />
-					<Route path="/details" element={<PetDetails />} />
+					<Route path="/details/:id" element={<PetDetails />} />
 				</Routes>
 			</main>
 
