@@ -9,11 +9,16 @@ export default function Login({ onLogin }) {
 		e.preventDefault();
 
 		let formData = new FormData(e.currentTarget);
-
 		let email = formData.get("email");
-		authService.login(email);
-		onLogin(email);
-		navigate("/");
+		let password = formData.get("password");
+
+		authService
+			.login(email, password)
+			.then((data) => {
+				onLogin(data);
+				navigate("/");
+			})
+			.catch((err) => console.log(err.message));
 	};
 
 	return (

@@ -12,8 +12,6 @@ export default function Dashboard() {
 			.catch((err) => console.log(err));
 	}, []);
 
-	console.log(Array.from(Object.entries(pets)));
-
 	return (
 		<section id="dashboard-page" className="dashboard">
 			<h1>Dashboard</h1>

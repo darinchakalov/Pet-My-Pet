@@ -9,56 +9,45 @@ import EditPet from "./components/EditPet/EditPet.js";
 import CreatePet from "./components/CreatePet/CreatePet.js";
 import MyPets from "./components/MyPets/MyPets.js";
 import PetDetails from "./components/PetDetails/PetDetails.js";
-import * as authService from "./services/authService.js";
 import Logout from "./components/Logout/Logout.js";
+import { AuthContext } from "./contexts/AuthContext.js";
 
 function App() {
-	const [userInfo, setUserInfo] = useState({ isAuthenticated: false, username: "" });
+	const [user, setUser] = useState({
+		accessToken: "",
+		email: "",
+		_id: "",
+	});
 
-	useEffect(() => {
-		let user = authService.getUser();
-
-		setUserInfo({
-			isAuthenticated: Boolean(user),
-			user,
-		});
-	}, []);
-
-	const onLogin = (username) => {
-		setUserInfo({
-			isAuthenticated: true,
-			user: username,
-		});
+	const onLogin = (authData) => {
+		setUser(authData);
 	};
 
-	const onLogout = () => {
-		setUserInfo({
-			isAuthenticated: false,
-			user: null,
-		});
-	};
+	const onLogout = () => {};
 
 	return (
-		<div id="container">
-			<Header {...userInfo} />
+		<AuthContext.Provider>
+			<div id="container">
+				<Header email={user.email} />
 
-			<main id="site-content">
-				<Routes>
-					<Route path="/" element={<Dashboard />} />
-					<Route path="/login" element={<Login onLogin={onLogin} />} />
-					<Route path="/register" element={<Register />} />
-					<Route path="/create" element={<CreatePet />} />
-					<Route path="/edit/:id" element={<EditPet />} />
-					<Route path="/my-pets" element={<MyPets />} />
-					<Route path="/details/:id" element={<PetDetails />} />
-					<Route path="/logout" element={<Logout onLogout={onLogout} />} />
-				</Routes>
-			</main>
+				<main id="site-content">
+					<Routes>
+						<Route path="/" element={<Dashboard />} />
+						<Route path="/login" element={<Login onLogin={onLogin} />} />
+						<Route path="/register" element={<Register />} />
+						<Route path="/create" element={<CreatePet />} />
+						<Route path="/edit/:id" element={<EditPet />} />
+						<Route path="/my-pets" element={<MyPets />} />
+						<Route path="/details/:id" element={<PetDetails />} />
+						<Route path="/logout" element={<Logout onLogout={onLogout} />} />
+					</Routes>
+				</main>
 
-			<footer id="site-footer">
-				<p>@PetMyPet</p>
-			</footer>
-		</div>
+				<footer id="site-footer">
+					<p>@PetMyPet</p>
+				</footer>
+			</div>
+		</AuthContext.Provider>
 	);
 }
 
