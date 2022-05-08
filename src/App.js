@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
 
 import Header from "./components/Header/Header.js";
 import Dashboard from "./components/Dashboard/Dashboard.js";
@@ -13,21 +12,25 @@ import Logout from "./components/Logout/Logout.js";
 import { AuthContext } from "./contexts/AuthContext.js";
 import useLocalStorage from "./hooks/useLocalStorage.js";
 
+const initialAuthState = {
+	accessToken: "",
+	email: "",
+	_id: "",
+};
+
 function App() {
-	const [user, setUser] = useLocalStorage("user", {
-		accessToken: "",
-		email: "",
-		_id: "",
-	});
+	const [user, setUser] = useLocalStorage("user", initialAuthState);
 
 	const login = (authData) => {
 		setUser(authData);
 	};
 
-	const onLogout = () => {};
+	const logout = () => {
+		setUser(initialAuthState);
+	};
 
 	return (
-		<AuthContext.Provider value={{ user, login }}>
+		<AuthContext.Provider value={{ user, login, logout }}>
 			<div id="container">
 				<Header />
 

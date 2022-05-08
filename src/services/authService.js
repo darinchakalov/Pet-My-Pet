@@ -41,8 +41,12 @@ export const getUser = () => {
 	return username;
 };
 
-export const logout = () => {
-	fetch(`${baseUrl}/users/logout`);
+export const logout = (token) => {
+	return fetch(`${baseUrl}/users/logout`, {
+		headers: {
+			"X-Authorization": token,
+		},
+	})
 };
 
 export const isAuthenticated = () => {
