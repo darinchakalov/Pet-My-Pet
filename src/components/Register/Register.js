@@ -1,7 +1,29 @@
+import * as authService from "../../services/authService.js";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext.js";
+
 export default function Register() {
+	const navigate = useNavigate();
+	const { login } = useContext(AuthContext);
+
+	const registerSubmitHandler = (e) => {
+		e.preventDefault();
+
+		let formData = Object.fromEntries(new FormData(e.currentTarget));
+
+		authService
+			.register(formData.email, formData.password)
+			.then((authData) => {
+				login(authData);
+				navigate("/");
+			})
+			.catch((err) => console.log(err));
+	};
+
 	return (
 		<section id="register-page" className="register">
-			<form id="register-form" action="" method="">
+			<form id="register-form" action="" method="POST" onSubmit={registerSubmitHandler}>
 				<fieldset>
 					<legend>Register Form</legend>
 					<p className="field">
