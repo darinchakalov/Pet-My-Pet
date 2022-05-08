@@ -1,7 +1,10 @@
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext.js";
 import * as petService from "../../services/petService.js";
 import { useNavigate } from "react-router-dom";
 
 export default function CreatePet() {
+	const { user } = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	const onPetCreate = (e) => {
@@ -14,7 +17,7 @@ export default function CreatePet() {
 		let type = formData.get("type");
 
 		petService
-			.createPet({ name, description, imageUrl, type })
+			.createPet({ name, description, imageUrl, type }, user.accessToken)
 			.then((result) => navigate("/"))
 			.catch((err) => console.log(err));
 	};

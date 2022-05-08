@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext.js";
 
-export default function Header({ email }) {
+export default function Header() {
+	const { user } = useContext(AuthContext);
+
 	let guestNavigation = (
 		<div id="guest">
 			<Link className="button" to="/login">
@@ -14,7 +18,7 @@ export default function Header({ email }) {
 
 	let userNavigation = (
 		<div id="user">
-			<span>Welcome, {email}</span>
+			<span>Welcome, {user.email}</span>
 			<Link className="button" to="/my-pets">
 				My Pets
 			</Link>
@@ -32,7 +36,7 @@ export default function Header({ email }) {
 			<nav className="navbar">
 				<section className="navbar-dashboard">
 					<Link to="/">Dashboard</Link>
-					{email ? userNavigation : guestNavigation}
+					{user.email ? userNavigation : guestNavigation}
 				</section>
 			</nav>
 		</header>

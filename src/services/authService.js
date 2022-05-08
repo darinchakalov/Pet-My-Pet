@@ -25,7 +25,7 @@ export const getUser = () => {
 };
 
 export const logout = () => {
-	localStorage.clear();
+	fetch(`${baseUrl}/users/logout`)
 };
 
 export const isAuthenticated = () => {
