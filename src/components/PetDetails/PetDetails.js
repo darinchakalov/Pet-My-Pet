@@ -2,8 +2,11 @@ import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext.js";
 import * as petService from "../../services/petService.js";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function PetDetails() {
+	const navigate = useNavigate();
+
 	const { user } = useContext(AuthContext);
 	const { id } = useParams();
 	const [pet, setPet] = useState({});
@@ -15,14 +18,25 @@ export default function PetDetails() {
 			.catch((err) => console.log(err));
 	}, []);
 
+	const deleteHandler = (e) => {
+		e.preventDefault();
+
+		petService
+			.deletePet(id, user.accessToken)
+			.then(() => {
+				navigate("/");
+			})
+			.catch((err) => console.log(err));
+	};
+
 	const ownerButtons = (
 		<>
-			<a className="button" href="#">
+			<Link className="button" to={`/edit/${pet._id}`}>
 				Edit
-			</a>
-			<a className="button" href="#">
+			</Link>
+			<Link className="button" to="#" onClick={deleteHandler}>
 				Delete
-			</a>
+			</Link>
 		</>
 	);
 

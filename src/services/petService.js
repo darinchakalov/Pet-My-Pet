@@ -10,11 +10,21 @@ export const getSinglePet = (id) => {
 
 export const createPet = (petData, token) => {
 	return fetch(`${baseUrl}/pets`, {
-		method: "POST", // or 'PUT'
+		method: "POST", 
 		headers: {
 			"Content-Type": "application/json",
 			"X-Authorization": token,
 		},
 		body: JSON.stringify({ ...petData, likes: 0 }),
+	}).then((response) => response.json());
+};
+
+export const deletePet = (petId, token) => {
+	return fetch(`${baseUrl}/pets/${petId}`, {
+		method: "DELETE", 
+		headers: {
+			"Content-Type": "application/json",
+			"X-Authorization": token,
+		},
 	}).then((response) => response.json());
 };
