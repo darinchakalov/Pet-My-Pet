@@ -11,9 +11,10 @@ import MyPets from "./components/MyPets/MyPets.js";
 import PetDetails from "./components/PetDetails/PetDetails.js";
 import Logout from "./components/Logout/Logout.js";
 import { AuthContext } from "./contexts/AuthContext.js";
+import useLocalStorage from "./hooks/useLocalStorage.js";
 
 function App() {
-	const [user, setUser] = useState({
+	const [user, setUser] = useLocalStorage("user", {
 		accessToken: "",
 		email: "",
 		_id: "",
