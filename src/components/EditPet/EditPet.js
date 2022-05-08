@@ -1,38 +1,61 @@
+import { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import * as petService from "../../services/petService.js";
+import { AuthContext } from "../../contexts/AuthContext.js";
+
 export default function EditPet() {
+	const { user } = useContext(AuthContext);
+	const navigate = useNavigate();
+	const [pet, setPet] = useState({});
+
+	const { id } = useParams();
+
+	useEffect(() => {
+		petService
+			.getSinglePet(id)
+			.then((petData) => {
+				setPet(petData);
+			})
+			.catch((err) => console.log(err));
+	}, []);
+
+	const editHandler = (e) => {
+		e.preventDefault();
+		const petData = Object.fromEntries(new FormData(e.currentTarget));
+
+		petService
+			.editPet(id, petData, user.accessToken)
+			.then(() => navigate("/"))
+			.catch((err) => console.log(err));
+	};
+
 	return (
 		<section id="edit-page" className="edit">
-			<form id="edit-form" action="#" method="">
+			<form id="edit-form" method="PUT" onSubmit={editHandler}>
 				<fieldset>
 					<legend>Edit my Pet</legend>
 					<p className="field">
 						<label htmlFor="name">Name</label>
 						<span className="input">
-							<input type="text" name="name" id="name" value="Milo" />
+							<input type="text" name="name" id="name" defaultValue={pet.name} />
 						</span>
 					</p>
 					<p className="field">
 						<label htmlFor="description">Description</label>
 						<span className="input">
-							<textarea name="description" id="description">
-								Today, some dogs are used as pets, others are used to help humans do their work. They
-								are a popular pet because they are usually playful, friendly, loyal and listen to
-								humans. Thirty million dogs in the United States are registered as pets.[5] Dogs eat
-								both meat and vegetables, often mixed together and sold in stores as dog food. Dogs
-								often have jobs, including as police dogs, army dogs, assistance dogs, fire dogs,
-								messenger dogs, hunting dogs, herding dogs, or rescue dogs.
-							</textarea>
+							<textarea name="description" id="description" defaultValue={pet.description}></textarea>
 						</span>
 					</p>
 					<p className="field">
 						<label htmlFor="image">Image</label>
 						<span className="input">
-							<input type="text" name="imageUrl" id="image" value="/images/dog.png" />
+							<input type="text" name="imageUrl" id="image" defaultValue={pet.imageUrl} />
 						</span>
 					</p>
 					<p className="field">
 						<label htmlFor="type">Type</label>
 						<span className="input">
-							<select id="type" name="type" value="dog">
+							<select id="type" name="type" defaultValue={pet.type}>
 								<option value="cat">Cat</option>
 								<option value="dog" selected>
 									Dog
@@ -43,7 +66,7 @@ export default function EditPet() {
 							</select>
 						</span>
 					</p>
-					<input className="button submit" type="submit" value="Save" />
+					<input className="button submit" type="submit" defaultValue="Save" />
 				</fieldset>
 			</form>
 		</section>
