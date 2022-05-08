@@ -9,13 +9,12 @@ export const getSinglePet = (id) => {
 };
 
 export const createPet = (petData, token) => {
-	console.log(token);
 	return fetch(`${baseUrl}/pets`, {
 		method: "POST", // or 'PUT'
 		headers: {
 			"Content-Type": "application/json",
 			"X-Authorization": token,
 		},
-		body: JSON.stringify(petData),
+		body: JSON.stringify({ ...petData, likes: 0 }),
 	}).then((response) => response.json());
 };
