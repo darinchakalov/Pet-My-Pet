@@ -1,7 +1,9 @@
+import { request } from "./requester.js";
+
 const baseUrl = "http://localhost:3030/data";
 
 export const getAllPets = () => {
-	return fetch(`${baseUrl}/pets`).then((result) => result.json());
+	return request(`${baseUrl}/pets`);
 };
 
 export const getSinglePet = (id) => {
