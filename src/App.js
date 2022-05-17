@@ -10,6 +10,7 @@ import MyPets from "./components/MyPets/MyPets.js";
 import PetDetails from "./components/PetDetails/PetDetails.js";
 import Logout from "./components/Logout/Logout.js";
 import { AuthProvider } from "./contexts/AuthContext.js";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
 	return (
