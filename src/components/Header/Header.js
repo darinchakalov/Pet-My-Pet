@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContext.js";
+import {  useAuthContext } from "../../contexts/AuthContext.js";
 
 export default function Header() {
-	const { user } = useContext(AuthContext);
+	const { user } = useAuthContext();
 
 	let guestNavigation = (
 		<div id="guest">

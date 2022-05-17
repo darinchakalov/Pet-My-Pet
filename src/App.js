@@ -9,28 +9,11 @@ import CreatePet from "./components/CreatePet/CreatePet.js";
 import MyPets from "./components/MyPets/MyPets.js";
 import PetDetails from "./components/PetDetails/PetDetails.js";
 import Logout from "./components/Logout/Logout.js";
-import { AuthContext } from "./contexts/AuthContext.js";
-import useLocalStorage from "./hooks/useLocalStorage.js";
-
-const initialAuthState = {
-	accessToken: "",
-	email: "",
-	_id: "",
-};
+import { AuthProvider } from "./contexts/AuthContext.js";
 
 function App() {
-	const [user, setUser] = useLocalStorage("user", initialAuthState);
-
-	const login = (authData) => {
-		setUser(authData);
-	};
-
-	const logout = () => {
-		setUser(initialAuthState);
-	};
-
 	return (
-		<AuthContext.Provider value={{ user, login, logout }}>
+		<AuthProvider>
 			<div id="container">
 				<Header />
 
@@ -51,7 +34,7 @@ function App() {
 					<p>@PetMyPet</p>
 				</footer>
 			</div>
-		</AuthContext.Provider>
+		</AuthProvider>
 	);
 }
 

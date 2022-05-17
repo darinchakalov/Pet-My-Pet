@@ -1,13 +1,13 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext.js";
+import { useAuthContext } from "../../contexts/AuthContext.js";
 import * as petService from "../../services/petService.js";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function PetDetails() {
 	const navigate = useNavigate();
 
-	const { user } = useContext(AuthContext);
+	const { user } = useAuthContext();
 	const { id } = useParams();
 	const [pet, setPet] = useState({});
 

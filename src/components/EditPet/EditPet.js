@@ -1,10 +1,10 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import * as petService from "../../services/petService.js";
-import { AuthContext } from "../../contexts/AuthContext.js";
+import {  useAuthContext } from "../../contexts/AuthContext.js";
 
 export default function EditPet() {
-	const { user } = useContext(AuthContext);
+	const { user } = useAuthContext();
 	const navigate = useNavigate();
 	const [pet, setPet] = useState({});
 
