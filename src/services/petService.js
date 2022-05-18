@@ -42,7 +42,13 @@ export const editPet = (petId, petData, token) => {
 	}).then((response) => response.json);
 };
 
-
-export const likePet = (petId, userId) => {
-
-}
+export const like = (petId, pet, token) => {
+	return fetch(`${baseUrl}/pets/${petId}`, {
+		method: "PUT",
+		headers: {
+			"content-type": "application/json",
+			"X-Authorization": token,
+		},
+		body: JSON.stringify(pet),
+	}).then((res) => res.json());
+};

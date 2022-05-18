@@ -52,8 +52,21 @@ export default function PetDetails() {
 	);
 
 	const likeButtonClick = () => {
-		petService.likePet(id, user._id).then((likeCount) => {
-			setPet((state) => ({ ...state, likes: likeCount }));
+		if (pet.likes.includes(user._id)) {
+			// TODO: add notification
+			console.log("User already liked");
+			return;
+		}
+
+		let likes = [...pet.likes, user._id];
+		let likedPet = { ...pet, likes };
+
+		petService.like(pet._id, likedPet, user.accessToken).then((resData) => {
+			console.log(resData);
+			setPet((state) => ({
+				...state,
+				likes,
+			}));
 		});
 	};
 
