@@ -55,7 +55,7 @@ export default function EditPet() {
 								name="name"
 								id="name"
 								defaultValue={pet.name}
-								onBlur={nameChangeHandler}
+								onChange={nameChangeHandler}
 							/>
 						</span>
 						<Alert variant="danger" show={errors.name}>
