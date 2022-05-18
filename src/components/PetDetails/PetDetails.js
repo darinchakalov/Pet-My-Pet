@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+
 import { useAuthContext } from "../../contexts/AuthContext.js";
 import * as petService from "../../services/petService.js";
-import { Link, useNavigate } from "react-router-dom";
 import ConfirmDialog from "../Common/ConfirmDialog/ConfirmDialog.js";
 
 export default function PetDetails() {
@@ -51,10 +51,16 @@ export default function PetDetails() {
 		</>
 	);
 
+	const likeButtonClick = () => {
+		petService.likePet(id, user._id).then((likeCount) => {
+			setPet((state) => ({ ...state, likes: likeCount }));
+		});
+	};
+
 	const userButtons = (
-		<a className="button" href="#">
+		<button className="button" onClick={likeButtonClick}>
 			Like
-		</a>
+		</button>
 	);
 
 	return (
@@ -68,7 +74,7 @@ export default function PetDetails() {
 						<img src={pet.imageUrl} alt="" />
 					</p>
 					<div className="actions">
-						{user._id && (pet._ownerId == user._id ? ownerButtons : userButtons)}
+						{user._id && (pet._ownerId === user._id ? ownerButtons : userButtons)}
 
 						<div className="likes">
 							<img className="hearts" src="/images/heart.png" alt="" />

@@ -41,3 +41,8 @@ export const editPet = (petId, petData, token) => {
 		body: JSON.stringify(petData),
 	}).then((response) => response.json);
 };
+
+
+export const likePet = (petId, userId) => {
+
+}
