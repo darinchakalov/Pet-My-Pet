@@ -12,31 +12,37 @@ import Logout from "./components/Logout/Logout.js";
 import { AuthProvider } from "./contexts/AuthContext.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ErrorBoundry from "./components/Common/ErrorBoundry.js";
+import { NotoficationProvider } from "./contexts/NotificationContext.js";
+import Notification from "./components/Common/Notification.js";
 
 function App() {
 	return (
 		<ErrorBoundry>
 			<AuthProvider>
-				<div id="container">
-					<Header />
+				<NotoficationProvider>
+					<div id="container">
+						<Header />
 
-					<main id="site-content">
-						<Routes>
-							<Route path="/" element={<Dashboard />} />
-							<Route path="/login" element={<Login />} />
-							<Route path="/register" element={<Register />} />
-							<Route path="/create" element={<CreatePet />} />
-							<Route path="/edit/:id" element={<EditPet />} />
-							<Route path="/my-pets" element={<MyPets />} />
-							<Route path="/details/:id" element={<PetDetails />} />
-							<Route path="/logout" element={<Logout />} />
-						</Routes>
-					</main>
+						<Notification />
 
-					<footer id="site-footer">
-						<p>@PetMyPet</p>
-					</footer>
-				</div>
+						<main id="site-content">
+							<Routes>
+								<Route path="/" element={<Dashboard />} />
+								<Route path="/login" element={<Login />} />
+								<Route path="/register" element={<Register />} />
+								<Route path="/create" element={<CreatePet />} />
+								<Route path="/edit/:id" element={<EditPet />} />
+								<Route path="/my-pets" element={<MyPets />} />
+								<Route path="/details/:id" element={<PetDetails />} />
+								<Route path="/logout" element={<Logout />} />
+							</Routes>
+						</main>
+
+						<footer id="site-footer">
+							<p>@PetMyPet</p>
+						</footer>
+					</div>
+				</NotoficationProvider>
 			</AuthProvider>
 		</ErrorBoundry>
 	);
